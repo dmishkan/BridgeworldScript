@@ -29,7 +29,7 @@ e3.pack()
 label5 = Label(root, text="00:00:00")
 label5.pack(side=RIGHT)
 
-arbitrum_mainnet = "https://speedy-nodes-nyc.moralis.io/374ac32c40e6a89aa0abe6c2/arbitrum/mainnet" #WILL THIS WORK WHEN RAN ON SOMEONE ELSE'S PC? (worked for travis)
+arbitrum_mainnet = "https://speedy-nodes-nyc.moralis.io/374ac32c40e6a89aa0abe6c2/arbitrum/mainnet"
 web3 = Web3(Web3.HTTPProvider(arbitrum_mainnet))
 print(web3.isConnected())
 treasure_address = Web3.toChecksumAddress('0xda3cad5e4f40062ceca6c1b979766bc0baed8e33') #reveal treasure/restart address
@@ -41,11 +41,7 @@ def execute_transactions(address, private_key, token_ids):
     main_address = Web3.toChecksumAddress(address)
     
     # If one is ready to reveal, they all are. If fails, return and try again in next time period
-    # try:
-    #     contract.functions.isQuestReadyToReveal(token_ids[0]).call()
-    # except:
-    #     print("Not ready to reveal; returned")
-    #     return
+    # run tx in chunks of 3 so it processes correctly
     
     chunks_of_3 = [token_ids[x:x+3] for x in range(0, len(token_ids), 3)]
     for chunk in chunks_of_3:
@@ -142,6 +138,4 @@ button.pack(fill='x')
 root.resizable(width=False, height=False)
 root.mainloop()
 
-# addy = 0xac938bDfC6fF1223221Be77cdbbB7BCa1e745249
-# pk = c9f1b502639a7c8063543aba7a205789ff556fd4582593a1a8f434d7b0d20229
-# 13774 15127 15572 17131
+
